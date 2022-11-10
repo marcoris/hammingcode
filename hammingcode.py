@@ -4,6 +4,8 @@ import numpy as np
 class HammingCode:
     # Constructor HammingCode(m)
     def __init__(self, codeword):
+        self.parityMatrix = None
+        self.parityBitsMatrix = None
         self.codeword = codeword
         self.k = len(userinput) - 1
         self.codewordLength = (2 ** self.k) - 1
@@ -20,14 +22,14 @@ class HammingCode:
 
     # Check and return result vector
     def get_check_matrix(self, codeword):
-        codewordMatrix = self.get_dataBitsLength_as_matrix(codeword)
+        codewordMatrix = self.get_data_bits_length_as_matrix(codeword)
         self.parityBitsMatrix = self.get_parity_bits_matrix()
         self.parityMatrix = np.hstack((self.parityBitsMatrix, self.parity_unity_matrix))
 
         return np.matmul(self.parityMatrix, codewordMatrix) % 2
 
     def encode(self):
-        codewordMatrix = self.get_dataBitsLength_as_matrix(self.codeword)
+        codewordMatrix = self.get_data_bits_length_as_matrix(self.codeword)
         generatorMatrix = self.get_generator_matrix()
         result = np.matmul(generatorMatrix, codewordMatrix) % 2
 
@@ -49,7 +51,7 @@ class HammingCode:
 
             print("Bit-flipped codeword:", codeword)
             codeWord = codeword[:index] + replaceChar + codeword[index + 1:]
-            print("Corrected codeword:", codeWord)
+            print("Corrected codeword:  ", codeWord)
 
             return self.decode(codeWord)
 
@@ -76,28 +78,25 @@ class HammingCode:
         return np.eye(d, dtype=int)
 
     @staticmethod
-    def get_dataBitsLength_as_matrix(w):
+    def get_data_bits_length_as_matrix(w):
         return list(map(int, w))
 
 
 while True:
-    try:
-        print()
-        print("~~~~~~~~~~~~~~~~ (7, 4)-Hamming-Code ~~~~~~~~~~~~~~~~")
-        userinput = str(input("Please enter new codeword or x for exit:\n> "))
-        if userinput == "x":
-            break
+    print()
+    print("~~~~~~~~~~~~~~~~ (7, 4)-Hamming-Code ~~~~~~~~~~~~~~~~")
+    userinput = str(input("Please enter new codeword or x for exit:\n> "))
+    if userinput == "x":
+        break
 
-        if len(userinput) == 4:
-            code = HammingCode(userinput)
-            encoded = code.encode()
-            print('Encoded: ' + encoded)
-            bitflip = str(input("Manipulate one bitflip: "))
-            decoded = code.decode(bitflip)
-            print('Decoded: ' + decoded)
-            print()
-        else:
-            print("Incorrect value. Try again. E.g. 1000")
-            print()
-    except:
-        pass
+    if len(userinput) == 4:
+        code = HammingCode(userinput)
+        encoded = code.encode()
+        print('Encoded: ' + encoded)
+        bitflip = str(input("Manipulate one bitflip: "))
+        decoded = code.decode(bitflip)
+        print('Decoded: ' + decoded)
+        print()
+    else:
+        print("Incorrect value. Try again. E.g. 1000")
+        print()
