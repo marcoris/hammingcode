@@ -1,5 +1,6 @@
 # FFHS
-## Codierungstheorie
+## Semesterarbeit 2 - Codierungstheorie
+## Marco Ris
 ### LinAlg, Lineare Algebra, INF-P-MS007, BE-Sa-1, HS22/23, Prof. Dr. Dehmer Matthias
 ![img.png](img.png)
 
