@@ -1,6 +1,14 @@
 import numpy as np
 
 
+def generate_unity_matrix(d):
+    return np.eye(d, dtype=int)
+
+
+def get_data_bits_length_as_matrix(w):
+    return list(map(int, w))
+
+
 class HammingCode:
     # Constructor HammingCode(m)
     def __init__(self, codeword):
@@ -10,8 +18,8 @@ class HammingCode:
         self.k = len(userinput) - 1
         self.codewordLength = (2 ** self.k) - 1
         self.dataBitsLength = (2 ** self.k) - self.k - 1
-        self.parity_unity_matrix = self.generate_unity_matrix(self.k)
-        self.generator_unity_matrix = self.generate_unity_matrix(self.dataBitsLength)
+        self.parity_unity_matrix = generate_unity_matrix(self.k)
+        self.generator_unity_matrix = generate_unity_matrix(self.dataBitsLength)
 
     # Create generatormatrix
     def get_generator_matrix(self):
@@ -22,14 +30,14 @@ class HammingCode:
 
     # Check and return result vector
     def get_check_matrix(self, codeword):
-        codewordMatrix = self.get_data_bits_length_as_matrix(codeword)
+        codewordMatrix = get_data_bits_length_as_matrix(codeword)
         self.parityBitsMatrix = self.get_parity_bits_matrix()
         self.parityMatrix = np.hstack((self.parityBitsMatrix, self.parity_unity_matrix))
 
         return np.matmul(self.parityMatrix, codewordMatrix) % 2
 
     def encode(self):
-        codewordMatrix = self.get_data_bits_length_as_matrix(self.codeword)
+        codewordMatrix = get_data_bits_length_as_matrix(self.codeword)
         generatorMatrix = self.get_generator_matrix()
         result = np.matmul(generatorMatrix, codewordMatrix) % 2
 
@@ -72,14 +80,6 @@ class HammingCode:
                             datenBitsIndex]
 
         return np.reshape(parityBitsMatrix, (self.k, self.dataBitsLength))
-
-    @staticmethod
-    def generate_unity_matrix(d):
-        return np.eye(d, dtype=int)
-
-    @staticmethod
-    def get_data_bits_length_as_matrix(w):
-        return list(map(int, w))
 
 
 while True:
