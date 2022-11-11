@@ -93,7 +93,10 @@ while True:
         code = HammingCode(userinput)
         encoded = code.encode()
         print('Encoded: ' + encoded)
-        bitflip = str(input("Manipulate one bitflip: "))
+        while True:
+            bitflip = str(input("Manipulate one bitflip: "))
+            if len(bitflip) == 7:
+                break
         decoded = code.decode(bitflip)
         print('Decoded: ' + decoded)
         print()
