@@ -76,8 +76,7 @@ class HammingCode:
     def get_parity_bits_matrix(self):
         parityBitsBinary = [bin(i)[2:].zfill(self.k) for i in range(1, self.codewordLength + 1)]
         datenBitsIndex = [i for i in range(1, self.codewordLength + 1) if (i & (i - 1)) != 0]
-        parityBitsMatrix = [int(parityBitsBinary[dI - 1][-(pI + 1)]) for pI in range(0, self.k) for dI in
-                            datenBitsIndex]
+        parityBitsMatrix = [int(parityBitsBinary[dI - 1][-(pI + 1)]) for pI in range(0, self.k) for dI in datenBitsIndex]
 
         return np.reshape(parityBitsMatrix, (self.k, self.dataBitsLength))
 
