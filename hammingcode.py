@@ -24,8 +24,8 @@ class HammingCode:
     # Create generatormatrix
     def get_generator_matrix(self):
         parityBitsMatrix = self.get_parity_bits_matrix()
-        generatorMatrix = np.append(self.generator_unity_matrix,
-                                    [parityBitsMatrix[i] for i in range(0, len(parityBitsMatrix))])
+        generatorMatrix = np.append(self.generator_unity_matrix, [parityBitsMatrix[i] for i in range(0, len(parityBitsMatrix))])
+
         return np.reshape(generatorMatrix, (self.codewordLength, self.dataBitsLength))
 
     # Check and return result vector
